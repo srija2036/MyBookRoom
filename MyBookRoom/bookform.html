@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>The Ledger | MyBookRoom</title>
+  <link rel="stylesheet" href="global.css">
+  <link rel="stylesheet" href="bookform.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,600&family=Quicksand:wght@400;600&display=swap" rel="stylesheet">
+</head>
+<body data-theme="vintage">
+  <audio id="typewriterSound" src="https://www.soundjay.com/mechanical/typewriter-key-1.mp3" preload="auto"></audio>
+
+  <div class="deckled-page">
+    <header class="form-header">
+      <a href="room.html" class="ink-link">← Return to Study</a>
+      <a href="javascript:history.back()" class="global-back-arrow">←</a>
+      <h1 class="serif-text">New Inscription</h1>
+      <p class="ornament">❧</p>
+    </header>
+
+    <div class="field">
+      <label>Search the Archives</label>
+      <div class="search-box">
+        <input type="text" id="bookName" placeholder="Type title..." oninput="searchBooks()" class="ink-input" />
+        <div id="resultsDropdown" class="ink-dropdown"></div>
+      </div>
+    </div>
+
+    <div id="selectedPreview" class="selection-display" style="display:none;">
+        <img id="chosenCover" src="" alt="">
+        <div class="details">
+          <h3 id="chosenTitle" class="serif-text"></h3>
+          <span id="chosenAuthor"></span>
+        </div>
+    </div>
+
+    <div class="row">
+      <div class="field">
+        <label>Rating</label>
+        <div class="ink-stars" id="starRating">
+          <span data-value="1">★</span><span data-value="2">★</span><span data-value="3">★</span><span data-value="4">★</span><span data-value="5">★</span>
+        </div>
+        <input type="hidden" id="bookRating" value="0">
+      </div>
+      <div class="field">
+        <label>Date</label>
+        <input type="date" id="readDate" class="ink-input">
+      </div>
+    </div>
+
+    <div class="field">
+      <label>Reflections</label>
+      <textarea id="thoughts" class="ink-textarea" placeholder="Write your heart..."></textarea>
+    </div>
+
+    <div class="field">
+      <label>Pressed Memory (Upload Photo)</label>
+      <input type="file" id="memoryImage" accept="image/*" onchange="previewMemory(event)" />
+      <div id="memoryPreviewContainer" class="memory-frame" style="display:none; margin-top:15px;">
+        <img id="memoryPreview" src="" style="width:100%">
+      </div>
+    </div>
+
+    <button class="wax-seal-btn" onclick="saveSelectedBook()">Seal Entry</button>
+  </div>
+
+  <script src="theme.js"></script>
+  <script>
+    let selectedBookData = null;
+    let memoryImageData = "";
+    const typeSound = document.getElementById("typewriterSound");
+
+    document.addEventListener('keydown', () => { typeSound.currentTime = 0; typeSound.play(); });
+
+    async function searchBooks() {
+      const query = document.getElementById("bookName").value;
+      const dropdown = document.getElementById("resultsDropdown");
+      if (query.length < 3) { dropdown.style.display = "none"; return; }
+      const res = await fetch(`https://www.googleapis.com/books/v1/volumes?q=${encodeURIComponent(query)}&maxResults=5`);
+      const data = await res.json();
+      dropdown.innerHTML = ""; dropdown.style.display = "block";
+      data.items.forEach(item => {
+        const info = item.volumeInfo;
+        const thumb = info.imageLinks ? info.imageLinks.thumbnail.replace("http:","https:") : "https://via.placeholder.com/40x60";
+        const div = document.createElement("div");
+        div.className = "result-item";
+        div.innerHTML = `<img src="${thumb}"><div><strong>${info.title}</strong></div>`;
+        div.onclick = () => {
+          selectedBookData = { title: info.title, cover: thumb };
+          dropdown.style.display = "none";
+          document.getElementById("bookName").value = info.title;
+          document.getElementById("selectedPreview").style.display = "flex";
+          document.getElementById("chosenCover").src = thumb;
+          document.getElementById("chosenTitle").innerText = info.title;
+        };
+        dropdown.appendChild(div);
+      });
+    }
+
+    function previewMemory(event) {
+      const reader = new FileReader();
+      reader.onload = () => {
+        memoryImageData = reader.result;
+        document.getElementById('memoryPreview').src = reader.result;
+        document.getElementById('memoryPreviewContainer').style.display = 'block';
+      }
+      reader.readAsDataURL(event.target.files[0]);
+    }
+
+    function saveSelectedBook() {
+      if (!selectedBookData) { alert("Select a book!"); return; }
+      const newBook = { ...selectedBookData, thoughts: document.getElementById("thoughts").value, rating: document.getElementById("bookRating").value, date: document.getElementById("readDate").value, memory: memoryImageData, id: Date.now() };
+      let books = JSON.parse(localStorage.getItem("myBooks")) || [];
+      books.push(newBook);
+      localStorage.setItem("myBooks", JSON.stringify(books));
+      window.location.href = "bookshelf.html";
+    }
+
+    document.querySelectorAll('#starRating span').forEach(star => {
+      star.onclick = (e) => {
+        const val = e.target.dataset.value;
+        document.getElementById('bookRating').value = val;
+        document.querySelectorAll('#starRating span').forEach(s => s.classList.toggle('filled', s.dataset.value <= val));
+      };
+    });
+  </script>
+</body>
+</html>

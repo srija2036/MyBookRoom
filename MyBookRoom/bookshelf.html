@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>The Shelf | MyBookRoom</title>
+  <link rel="stylesheet" href="global.css">
+  <link rel="stylesheet" href="bookshelf.css">
+</head>
+<body data-theme="vintage">
+  <div class="shelf-area">
+    <header style="text-align:center; padding: 40px;">
+        <a href="room.html" class="ink-link">← Return</a>
+        <a href="javascript:history.back()" class="global-back-arrow">←</a>
+        <h1 class="serif-text italic">The Grand Collection</h1>
+        <p class="ornament">❧</p>
+    </header>
+    
+    <div id="shelfContainer"></div>
+  </div>
+
+  <script src="theme.js"></script>
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const container = document.getElementById("shelfContainer");
+      const myBooks = JSON.parse(localStorage.getItem("myBooks")) || [];
+      let html = '<div class="shelf">';
+      myBooks.forEach((book, i) => {
+        if (i > 0 && i % 5 === 0) html += '</div><div class="shelf">';
+        html += `<div class="book" style="background-image:url('${book.cover}'); background-size:cover;"></div>`;
+      });
+      html += '</div>';
+      container.innerHTML = html;
+    });
+  </script>
+</body>
+</html>

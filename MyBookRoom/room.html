@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>The Study | MyBookRoom</title>
+    <link rel="stylesheet" href="global.css">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@1,900&family=Outfit:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        .study-wrapper {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 20px;
+        }
+        .nav-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            width: 100%;
+            max-width: 800px;
+            margin-top: 50px;
+        }
+        .nav-card {
+            background: var(--paper);
+            padding: 40px 20px;
+            border-radius: 25px;
+            text-decoration: none;
+            color: var(--ink);
+            font-family: 'Outfit', sans-serif;
+            font-weight: 600;
+            border: 1px solid rgba(255,255,255,0.3);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+            transition: 0.3s;
+        }
+        .nav-card:hover {
+            transform: translateY(-10px);
+            background: var(--accent);
+            color: white;
+        }
+        .nav-card span { font-size: 2.5rem; display: block; margin-bottom: 10px; }
+    </style>
+</head>
+<body data-theme="vintage">
+    <a href="index.html" class="global-back-arrow">←</a>
+
+    <div class="study-wrapper">
+        <h1 class="serif-text italic" style="font-size: 3.5rem; color: var(--ink);">The Study</h1>
+        <p style="font-family: 'Outfit'; opacity: 0.7;">Select a corner of your library to visit.</p>
+
+        <div class="nav-grid">
+            <a href="bookform.html" class="nav-card"><span>✍️</span>Inscribe Thoughts</a>
+            <a href="bookshelf.html" class="nav-card"><span>📚</span>The Great Shelf</a>
+            <a href="bookthoughts.html" class="nav-card"><span>📖</span>Journal Feed</a>
+        </div>
+    </div>
+
+    <script src="theme.js"></script>
+</body>
+</html>

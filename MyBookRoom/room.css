@@ -1,0 +1,124 @@
+:root {
+  --bg-color: #fcfaf7;
+  --accent: #7d63a1;
+  --text-dark: #2d2433;
+  --text-muted: #6b5b75;
+  --glass: rgba(255, 255, 255, 0.6);
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Quicksand', sans-serif;
+  background-color: var(--bg-color);
+  background-image: url("https://www.transparenttextures.com/patterns/cream-paper.png");
+  overflow: hidden;
+  height: 100vh;
+}
+
+.room {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  opacity: 0;
+  transform: scale(0.9) translateY(20px);
+  animation: roomEntry 1.2s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+@keyframes roomEntry {
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+.content {
+  width: 90%;
+  max-width: 1000px;
+  text-align: center;
+  padding: 40px;
+}
+
+.room-header h1 {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(2rem, 5vw, 3.5rem);
+  color: var(--text-dark);
+  margin-bottom: 10px;
+}
+
+.room-header p {
+  font-size: 1.1rem;
+  color: var(--text-muted);
+  margin-bottom: 50px;
+  font-style: italic;
+}
+
+/* Navigation Grid */
+.nav-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 25px;
+  margin-bottom: 50px;
+}
+
+.nav-card {
+  background: var(--glass);
+  backdrop-filter: blur(10px);
+  padding: 40px 20px;
+  border-radius: 20px;
+  text-decoration: none;
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  transition: all 0.4s ease;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.nav-card .icon {
+  font-size: 3rem;
+  margin-bottom: 15px;
+  transition: transform 0.3s ease;
+}
+
+.nav-card h3 {
+  color: var(--text-dark);
+  font-family: 'Playfair Display', serif;
+  font-size: 1.5rem;
+  margin-bottom: 8px;
+}
+
+.nav-card p {
+  color: var(--text-muted);
+  font-size: 0.9rem;
+}
+
+.nav-card:hover {
+  transform: translateY(-10px);
+  background: white;
+  border-color: var(--accent);
+  box-shadow: 0 20px 40px rgba(125, 99, 161, 0.15);
+}
+
+.nav-card:hover .icon {
+  transform: scale(1.2) rotate(10deg);
+}
+
+/* Footer link */
+.room-footer {
+  margin-top: 20px;
+}
+
+.back-link {
+  color: var(--text-muted);
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 0.9rem;
+  transition: color 0.3s;
+}
+
+.back-link:hover {
+  color: var(--accent);
+}

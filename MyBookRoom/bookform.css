@@ -1,0 +1,95 @@
+:root {
+  --ink: #3e352d;
+  --gold: #c5a059;
+  --wax: #8b2626;
+  --parchment: #fdfaf6;
+}
+
+body {
+  margin: 0;
+  background: #d7ccc8 url('https://www.transparenttextures.com/patterns/natural-paper.png');
+  font-family: 'Quicksand', sans-serif;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  padding: 40px 0;
+  box-shadow: inset 0 0 150px rgba(0,0,0,0.2);
+}
+
+.deckled-page {
+  background: var(--parchment) url('https://www.transparenttextures.com/patterns/cream-paper.png');
+  width: 90%;
+  max-width: 600px;
+  padding: 60px;
+  border: 1px solid #d4c5b3;
+  box-shadow: 10px 10px 40px rgba(0,0,0,0.1);
+  position: relative;
+  text-align: center;
+}
+
+.form-header h1 {
+  font-family: 'Playfair Display', serif;
+  font-style: italic;
+  font-size: 2.5rem;
+  margin: 0;
+}
+
+.ornament { color: var(--gold); font-size: 2rem; margin: 10px 0; }
+
+.ink-link {
+  text-decoration: none;
+  color: #8d775f;
+  font-weight: 700;
+  font-variant: small-caps;
+  letter-spacing: 1px;
+}
+
+.field { margin-bottom: 30px; text-align: left; }
+label { display: block; font-family: 'Playfair Display', serif; font-weight: 700; color: var(--ink); margin-bottom: 10px; font-size: 1.1rem; }
+
+.ink-input, .ink-textarea {
+  width: 100%;
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid #d4c5b3;
+  padding: 10px 0;
+  font-family: inherit;
+  font-size: 1rem;
+  color: var(--ink);
+}
+
+.ink-textarea { height: 100px; resize: none; border: 1px solid #d4c5b3; padding: 10px; border-radius: 4px; }
+
+.row { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; }
+
+.ink-stars { font-size: 2rem; color: #ddd; cursor: pointer; }
+.ink-stars span.filled { color: var(--gold); text-shadow: 0 0 5px rgba(197, 160, 89, 0.5); }
+
+.selection-display { 
+  display: flex; align-items: center; background: #f4f0e6; padding: 15px; border-radius: 4px; margin-bottom: 30px; 
+}
+.selection-display img { width: 60px; height: 85px; margin-right: 20px; filter: sepia(0.3); border: 3px solid white; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
+
+.memory-frame { margin-top: 15px; border: 8px solid white; transform: rotate(-1deg); box-shadow: 5px 5px 15px rgba(0,0,0,0.1); }
+#memoryPreview { width: 100%; display: block; filter: sepia(0.2); }
+
+.wax-seal-btn {
+  background: var(--wax);
+  color: white;
+  border: none;
+  padding: 18px 45px;
+  font-family: 'Playfair Display', serif;
+  font-size: 1.3rem;
+  cursor: pointer;
+  box-shadow: 2px 2px 8px rgba(0,0,0,0.4);
+  transition: 0.3s;
+  border-radius: 50% 50% 50% 50% / 12% 12% 12% 12%; /* Irregular wax shape */
+}
+
+.wax-seal-btn:hover { transform: scale(1.05) rotate(2deg); background: #a12d2d; }
+
+.ink-dropdown {
+    background: white; border: 1px solid #ddd; position: absolute; width: 100%; z-index: 5;
+}
+.result-item { display: flex; padding: 10px; cursor: pointer; border-bottom: 1px solid #eee; font-size: 0.8rem; }
+.result-item img { width: 30px; height: 45px; margin-right: 10px; }

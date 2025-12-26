@@ -1,0 +1,64 @@
+.hero-container {
+    height: 100vh;
+    width: 100vw;
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* VERTICAL CENTER */
+    align-items: center;     /* HORIZONTAL CENTER */
+    padding: 20px;
+}
+
+.main-hero-card {
+    padding: 60px 50px;
+    border-radius: 40px;
+    text-align: center;
+    max-width: 500px;
+    width: 100%;
+}
+
+.hero-title {
+    font-size: 4.5rem;
+    margin-bottom: 10px;
+    line-height: 1;
+}
+
+.hero-subtitle {
+    font-size: 1.4rem;
+    margin-bottom: 40px;
+    color: var(--text-muted);
+}
+
+.enter-room-btn {
+    padding: 14px 40px;
+    background: var(--text-main);
+    color: white;
+    text-decoration: none;
+    border-radius: 50px;
+    font-size: 1.3rem;
+    font-weight: 600;
+    transition: 0.3s ease;
+}
+
+.enter-room-btn:hover {
+    letter-spacing: 1px;
+    transform: translateY(-3px);
+}
+
+.posh-theme-switcher {
+    margin-top: 40px;
+    display: flex;
+    gap: 15px;
+}
+
+.theme-option {
+    background: var(--glass);
+    border: 1px solid rgba(0,0,0,0.1);
+    padding: 8px 20px;
+    border-radius: 20px;
+    cursor: pointer;
+    font-family: inherit;
+    font-weight: 600;
+    color: var(--text-main);
+}
+
+.ornament-top { font-size: 2.5rem; display: block; margin-bottom: 10px; color: var(--accent); }

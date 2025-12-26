@@ -1,0 +1,74 @@
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,500;1,700&display=swap');
+
+:root {
+  /* THEME 1: GOLDEN VINTAGE */
+  --bg-gradient: linear-gradient(135deg, #f3e7e9 0%, #e3eeff 100%);
+  --glass: rgba(255, 255, 255, 0.5);
+  --text-main: #2c2c2c;      /* Deep Charcoal */
+  --text-muted: #555555;    /* Gray Ink */
+  --accent: #8b2626;         /* Wax Red */
+  --ornament: #b8924a;      /* Old Gold */
+}
+
+[data-theme="midnight"] {
+  /* THEME 2: OCEANIC NIGHT */
+  --bg-gradient: linear-gradient(135deg, #a1c4fd 0%, #c2e9fb 100%);
+  --glass: rgba(255, 255, 255, 0.4);
+  --text-main: #1a2a3a;      /* Deep Navy */
+  --text-muted: #3e4f5f;    /* Muted Blue-Dark */
+  --accent: #0056b3;
+  --ornament: #4a6fa5;
+}
+
+[data-theme="poet"] {
+  /* THEME 3: ROSE GARDEN */
+  --bg-gradient: linear-gradient(135deg, #ff9a9e 0%, #fecfef 100%);
+  --glass: rgba(255, 255, 255, 0.45);
+  --text-main: #4a0e0e;      /* Dark Wine */
+  --text-muted: #7a3e3e;    /* Muted Maroon */
+  --accent: #b33939;
+  --ornament: #d17a7a;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+    background: var(--bg-gradient) !important;
+    background-attachment: fixed !important;
+    color: var(--text-main) !important;
+    /* LOCKED FONT FOR ALL THEMES */
+    font-family: 'Cormorant Garamond', serif !important;
+    transition: all 0.6s ease-in-out;
+    min-height: 100vh;
+}
+
+h1, h2, h3, .serif-text {
+    font-weight: 700 !important;
+    color: var(--text-main) !important;
+}
+
+.glass-panel {
+    background: var(--glass);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+}
+
+.global-back-arrow {
+    position: fixed;
+    top: 25px;
+    left: 25px;
+    z-index: 2000;
+    width: 45px;
+    height: 45px;
+    background: var(--glass);
+    color: var(--text-main);
+    border: 1px solid rgba(0,0,0,0.1);
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-decoration: none;
+    font-size: 1.2rem;
+}

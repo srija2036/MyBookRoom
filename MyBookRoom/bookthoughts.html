@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Reflections | MyBookRoom</title>
+  <link rel="stylesheet" href="global.css">
+  <link rel="stylesheet" href="bookthoughts.css">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@1,400&family=Outfit:wght@300;600&display=swap" rel="stylesheet">
+</head>
+<body data-theme="vintage">
+  <a href="room.html" class="global-back-arrow">←</a>
+
+  <div class="journal-wrapper">
+    <header class="journal-header">
+      <h1 class="serif-text">Library Reflections</h1>
+      <p class="ornament">❧</p>
+    </header>
+    
+    <div id="thoughtsFeed"></div>
+  </div>
+
+  <div id="editModal" class="modal">
+    <div class="modal-content">
+      <h2 class="serif-text">Edit Reflection</h2>
+      <textarea id="editTextArea"></textarea>
+      <div class="modal-btns">
+        <button onclick="closeModal()" class="cancel-btn">Cancel</button>
+        <button onclick="saveEdit()" class="save-btn">Save Changes</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="theme.js"></script>
+  <script>
+    let currentEditId = null;
+
+    function renderFeed() {
+      const feed = document.getElementById("thoughtsFeed");
+      const myBooks = JSON.parse(localStorage.getItem("myBooks")) || [];
+      feed.innerHTML = "";
+
+      if (myBooks.length === 0) {
+        feed.innerHTML = "<p style='text-align:center; opacity:0.5;'>The journal is empty...</p>";
+        return;
+      }
+
+      // Show newest first
+      [...myBooks].reverse().forEach(book => {
+        const div = document.createElement('article');
+        div.className = 'thought-entry';
+        div.innerHTML = `
+          <div class="entry-card">
+            <div class="entry-sidebar">
+              <img src="${book.cover}" class="entry-cover">
+              <div class="entry-rating">${"★".repeat(book.rating)}</div>
+            </div>
+            <div class="entry-content">
+              <div class="entry-header">
+                <span class="entry-date">Recorded: ${book.date}</span>
+                <div class="entry-actions">
+                  <button onclick="openEdit(${book.id})" class="action-btn edit-icon">✎</button>
+                  <button onclick="deleteEntry(${book.id})" class="action-btn delete-icon">🗑</button>
+                </div>
+              </div>
+              <h2 class="entry-title serif-text">${book.title}</h2>
+              <p class="reflection-text">${book.thoughts}</p>
+              ${book.lastEdited ? `<span class="edited-tag">Edited on: ${book.lastEdited}</span>` : ""}
+              ${book.memory ? `<div class="memory-zone"><img src="${book.memory}"></div>` : ""}
+            </div>
+          </div>`;
+        feed.appendChild(div);
+      });
+    }
+
+    function deleteEntry(id) {
+      if(confirm("Are you sure you want to erase this memory?")) {
+        let myBooks = JSON.parse(localStorage.getItem("myBooks"));
+        myBooks = myBooks.filter(b => b.id !== id);
+        localStorage.setItem("myBooks", JSON.stringify(myBooks));
+        renderFeed();
+      }
+    }
+
+    function openEdit(id) {
+      currentEditId = id;
+      const myBooks = JSON.parse(localStorage.getItem("myBooks"));
+      const book = myBooks.find(b => b.id === id);
+      document.getElementById("editTextArea").value = book.thoughts;
+      document.getElementById("editModal").style.display = "flex";
+    }
+
+    function closeModal() {
+      document.getElementById("editModal").style.display = "none";
+    }
+
+    function saveEdit() {
+      const newThoughts = document.getElementById("editTextArea").value;
+      let myBooks = JSON.parse(localStorage.getItem("myBooks"));
+      const bookIndex = myBooks.findIndex(b => b.id === currentEditId);
+      
+      myBooks[bookIndex].thoughts = newThoughts;
+      myBooks[bookIndex].lastEdited = new Date().toLocaleDateString() + " " + new Date().toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
+      
+      localStorage.setItem("myBooks", JSON.stringify(myBooks));
+      closeModal();
+      renderFeed();
+    }
+
+    window.onload = renderFeed;
+  </script>
+</body>
+</html>
