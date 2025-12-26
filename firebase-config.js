@@ -2,14 +2,15 @@ import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebas
 import { getAuth } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
 import { getFirestore } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 
-const firebaseConfig = {
-  apiKey: "YOUR_API_KEY",
-  authDomain: "YOUR_PROJECT_ID.firebaseapp.com",
-  projectId: "YOUR_PROJECT_ID",
-  storageBucket: "YOUR_PROJECT_ID.appspot.com",
-  messagingSenderId: "YOUR_SENDER_ID",
-  appId: "YOUR_APP_ID"
-};
+ const firebaseConfig = {
+    apiKey: "AIzaSyCvuo23eLJLLOKnHCCTT270F3xPWVc-r4o",
+    authDomain: "mybookroom-a0ba7.firebaseapp.com",
+    projectId: "mybookroom-a0ba7",
+    storageBucket: "mybookroom-a0ba7.firebasestorage.app",
+    messagingSenderId: "217478922812",
+    appId: "1:217478922812:web:61b6d30bcdec863783b939"
+  };
+
 
 const app = initializeApp(firebaseConfig);
 export const auth = getAuth(app);
